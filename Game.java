@@ -74,7 +74,7 @@ public class Game extends JPanel implements Runnable {
     public void drawField(Graphics g) {                                                         //отрисовка поля(ресайзабл) (ЧТО ЗА ****КИЙ ЯЗЫК ЕМУ НАСРАТЬ ЧТО РИСОВАТЬ ОН РИСУЕТ С ПОГРЕШНОСТЬЮ В 20 ПИСКЕЛЕЙ ...)
         g.setColor(Color.RED);
         int cellSize = countCellSize();
-        g.drawLine(73,97,cellSize, cellSize*11);
+        g.drawLine(73,97,803, 97);
         g.setColor(Color.BLACK);
         g.drawLine(65, 65,cellSize,cellSize*11);
         for (int i = 0; i < 2; i++)
