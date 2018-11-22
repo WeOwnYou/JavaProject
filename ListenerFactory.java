@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.floor;
 
 public class ListenerFactory {
 
@@ -29,17 +30,26 @@ public class ListenerFactory {
 
         @Override
         public void mousePressed(MouseEvent mouseEvent) {
-            x0 = mouseEvent.getX();
-            y0 = mouseEvent.getY();
+            x0 = mouseEvent.getX() - 10;     //фикшу курсов
+            y0 = mouseEvent.getY() - 30;
             mouseRel = false;
         }
 
         @Override
         public void mouseReleased(MouseEvent mouseEvent) {
-            x1 = mouseEvent.getX();
-            y1 = mouseEvent.getY();
+            x1 = mouseEvent.getX() - 10;
+            y1 = mouseEvent.getY() - 30;
             System.out.println(x1 + " " + y1);
             mouseRel = true;
+
+            int cellSize = this.game.countCellSize();
+            int x0 = (int)((float) ListenerFactory.ML.x0/(float) cellSize) - 1;
+            int y0 = (int)((float) ListenerFactory.ML.y0/(float) cellSize) - 1;
+            int x1 = (int)((float) ListenerFactory.ML.x1/(float) cellSize) - 1;
+            int y1 = (int)((float) ListenerFactory.ML.y1/(float) cellSize) - 1;
+            this.game.createShip(x0,y0,x1,y1);
+            System.out.println(x0 + " " + y0 + " " + x1 + " " + y1);
+
         }
 
         @Override
@@ -51,43 +61,6 @@ public class ListenerFactory {
         public void mouseExited(MouseEvent mouseEvent) {
 
         }
-
-        public static int[] start_len_tiltOfShip(int cellSize) {                                //расщет длинны(в клетках) и координат и наклона (не проебать проверку на выход за пределы, количество кораблей, )
-//            System.out.println(mouseRel);
-
-            if (mouseRel) {
-                int res[] = new int[4];
-                int x0 = (int)((float) ListenerFactory.ML.x0/(float) cellSize);
-                int y0 = (int)((float) ListenerFactory.ML.y0/(float) cellSize);
-                int x1 = (int)((float) ListenerFactory.ML.x1/(float) cellSize)-1;
-                int y1 = (int)((float) ListenerFactory.ML.y1/(float) cellSize)-1;
-
-                res[0] = x0-1;
-                res[1] = y0-1;
-
-                if (0 == x1 - res[0] && 0 == y1 - res[1]) {
-                    res[2] = 1;
-                    res[3] = 1;
-                    return res;
-                } else {
-                    if (0 == x1 - res[0]) {                        //возврат длинны и наклона
-                        res[2] = abs(y1 - res[0])+1;
-                        res[3] = -1;
-                        return res;
-                    } else {
-                        if (0 == y1 - res[1]) {
-                            res[2] = abs(x1 - res[0])+1;
-                            res[3] = 1;
-                            return res;
-                        }
-                    }
-                }
-            }
-            int[] t = {-1, -1, -1, -1};
-            return t;
-        }
-
-
         public static MouseListener getMouseListener(int type, Game game) {
             MouseListener result = null;
             switch (type) {
