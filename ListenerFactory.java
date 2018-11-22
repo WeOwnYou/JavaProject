@@ -56,25 +56,27 @@ public class ListenerFactory {
 //            System.out.println(mouseRel);
 
             if (mouseRel) {
-
                 int res[] = new int[4];
-                float x0 = (float) ListenerFactory.ML.x0/(float) cellSize;
-                float y0 = (float) ListenerFactory.ML.y0/(float) cellSize;
+                int x0 = (int)((float) ListenerFactory.ML.x0/(float) cellSize);
+                int y0 = (int)((float) ListenerFactory.ML.y0/(float) cellSize);
+                int x1 = (int)((float) ListenerFactory.ML.x1/(float) cellSize)-1;
+                int y1 = (int)((float) ListenerFactory.ML.y1/(float) cellSize)-1;
 
-//                res[1] = y0/cellSize;
-                System.out.println(x0 + " " +y0);
+                res[0] = x0-1;
+                res[1] = y0-1;
+
                 if (0 == x1 - res[0] && 0 == y1 - res[1]) {
-                    res[2] = 0;
+                    res[2] = 1;
                     res[3] = 1;
                     return res;
                 } else {
                     if (0 == x1 - res[0]) {                        //возврат длинны и наклона
-                        res[2] = abs(y1 - res[0]);
+                        res[2] = abs(y1 - res[0])+1;
                         res[3] = -1;
                         return res;
                     } else {
                         if (0 == y1 - res[1]) {
-                            res[2] = abs(x1 - res[0]);
+                            res[2] = abs(x1 - res[0])+1;
                             res[3] = 1;
                             return res;
                         }
