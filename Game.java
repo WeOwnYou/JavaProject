@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Game extends JPanel implements Runnable {
+public class Game extends JPanel {
 
     public Image img = null;
     private int gameField[][];
@@ -34,43 +34,22 @@ public class Game extends JPanel implements Runnable {
         Ships = new ArrayList<Ship>(10);
         running = true;
         this.mv = mv;
-        mv.addMouseListener(ListenerFactory.ML.getMouseListener((ListenerFactory.MOUSE_LISTENER),this));
-        Thread t = new Thread(this);
-        t.start();                                  // при отпускании возвращает клетки начала длинну и наклон (-1 - горизонталь, 1 - вертикаль)
-//        run();                                    //без рана поле отрисовывается !!!!!!!!!!!!!!!
-                                                     //выбрасывание экспшенов при клике не туда стедлать трай ктечем
+        mv.addMouseListener(ListenerFactory.ML.getMouseListener((ListenerFactory.MOUSE_LISTENER), this));
 
-    }
-    public void run() {
-
-//        createShip(0,0,1,1);
-        while (running){
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            int t[] = ListenerFactory.ML.start_len_tiltOfShip(countCellSize());
-            System.out.println(t[0] + " " + t[1] + " " + t[2] + " "+t[3]);
-            if(numberOfShips[t[2]] > 0){
-//                createShip(cellat[0]);
-            }
-        }
     }
 
     public void createShip(int x0, int y0, int x1, int y1) {                                        //запихивание информации о корабле в корбаль
         Ship s = new Ship(x0, y0, x1, y1);
         Ships.add(s);
-        System.out.println(Ships.size());
-//        repaint();
+        System.out.println(Ships.size() + " !");
+        repaint();
     }
 
     public void paint(Graphics g) {                                                             //общая отрисовка
         super.paint(g);
         drawField(g);
         try {
-            paintShip(g);
+            paintShips(g);
         }catch (Exception e){
             ;
         }
@@ -78,6 +57,7 @@ public class Game extends JPanel implements Runnable {
 
     public void drawField(Graphics g) {
         int cellSize = countCellSize();
+        System.out.println(cellSize);
         g.setColor(Color.BLACK);
         for (int i = 0; i < 2; i++)
             for (int j = 0; j <= 10; j++) {
@@ -89,8 +69,20 @@ public class Game extends JPanel implements Runnable {
             }
     }
 
-    public void paintShip(Graphics g) {                                                     //отрисовка корабля (тупой ресайзабл) (горизонтальная)
+    public void paintShips(Graphics g) {                                                     //отрисовка корабля (тупой ресайзабл) (горизонтальная)
         int cellSize = countCellSize();
-        g.drawImage(Ships.get(0).getShipImg(), cellSize, cellSize, cellSize*2, cellSize,null);
+//        Image shipImg = null;
+//        try {
+//            shipImg = ImageIO.read(new File("C:\\Users\\user\\IdeaProjects\\SeaBattle\\src\\com\\company\\ship.jpg")); //нормальный путь сделать
+//        } catch (IOException e) {
+//            System.out.println("JOKE");
+//        }
+//        g.drawImage(shipImg, cellSize, cellSize, cellSize*2,cellSize,null);
+        for(int i = 0;i < Ships.size();i++){
+            int lenx =  Ships.get(i).getX1() - Ships.get(i).getX0();
+            int leny = Ships.get(i).getY1() - Ships.get(i).getY0();
+            g.drawImage(Ships.get(i).getShipImg(), cellSize + Ships.get(i).getX0()*cellSize, cellSize + Ships.get(i).getY0()*cellSize,
+                    lenx*cellSize, leny*cellSize,null);
+        }
     }
 }
