@@ -19,10 +19,10 @@ public class Game extends JPanel implements Runnable {
         int cellSize = 0;
         if (mv.getWidth() <= mv.getHeight()) {
             cellSize = mv.getWidth() / 13;
-            cellSize = (mv.getWidth() - 2 * cellSize) / 13;
+            cellSize = (mv.getWidth() - 2 * cellSize) / 11;
         } else {
             cellSize = mv.getHeight() / 13;
-            cellSize = (mv.getHeight() - 2 * cellSize) / 13;
+            cellSize = (mv.getHeight() - 2 * cellSize) / 11;
         }
         return cellSize;
     }
@@ -49,6 +49,7 @@ public class Game extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
             int t[] = ListenerFactory.ML.start_len_tiltOfShip(countCellSize());
             System.out.println(t[0] + " " + t[1] + " " + t[2] + " "+t[3]);
         }
@@ -71,16 +72,12 @@ public class Game extends JPanel implements Runnable {
         }
     }
 
-    public void drawField(Graphics g) {                                                         //отрисовка поля(ресайзабл) (ЧТО ЗА ****КИЙ ЯЗЫК ЕМУ НАСРАТЬ ЧТО РИСОВАТЬ ОН РИСУЕТ С ПОГРЕШНОСТЬЮ В 20 ПИСКЕЛЕЙ ...)
-        g.setColor(Color.RED);
+    public void drawField(Graphics g) {
         int cellSize = countCellSize();
-        g.drawLine(73,97,803, 97);
         g.setColor(Color.BLACK);
-        g.drawLine(65, 65,cellSize,cellSize*11);
         for (int i = 0; i < 2; i++)
             for (int j = 0; j <= 10; j++) {
                 if (i == 0) {
-//                    System.out.println(cellSize+j*cellSize + " " +cellSize);                  //чтоб я ещё раз использовал этот проклятый язык
                     g.drawLine(cellSize + j * cellSize, cellSize, cellSize + j * cellSize, cellSize * 11);
                 }
                 else
@@ -92,5 +89,4 @@ public class Game extends JPanel implements Runnable {
         int cellSize = countCellSize();
         g.drawImage(Ships.get(0).getShipImg(), cellSize, cellSize, cellSize*2, cellSize,null);
     }
-
 }
