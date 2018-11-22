@@ -14,6 +14,7 @@ public class Game extends JPanel implements Runnable {
     private ArrayList<Ship> Ships;
     private boolean running;
     private MainWindow1 mv;
+    private int numberOfShips[] = {0, 4 , 3, 2, 1};
 
     public int countCellSize() {                                                        //установка размеров клеток
         int cellSize = 0;
@@ -52,6 +53,9 @@ public class Game extends JPanel implements Runnable {
 
             int t[] = ListenerFactory.ML.start_len_tiltOfShip(countCellSize());
             System.out.println(t[0] + " " + t[1] + " " + t[2] + " "+t[3]);
+            if(numberOfShips[t[2]] > 0){
+//                createShip(cellat[0]);
+            }
         }
     }
 
