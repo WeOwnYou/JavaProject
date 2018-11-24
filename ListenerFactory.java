@@ -1,12 +1,7 @@
 package com.company;
 
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-
-import static java.lang.Math.abs;
-import static java.lang.Math.floor;
 
 public class ListenerFactory {
 
