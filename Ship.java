@@ -18,10 +18,26 @@ public  class Ship {
         this.x1 = x1;
         this.y1 = y1;
         try {
-            shipImg = ImageIO.read(new File("C:\\Users\\user\\IdeaProjects\\SeaBattle\\src\\com\\company\\ship.jpg")); //нормальный путь сделать
+            shipImg = ImageIO.read(new File("C:\\Users\\user\\IdeaProjects\\SeaBattle\\src\\com\\company\\ship1.jpg")); //нормальный путь сделать
         } catch (IOException e) {
             System.out.println("JOKE");
         }
+//        System.out.println(isHorizontal);
+//        if(!isHorizontal){
+//            try {
+//                System.out.println("!");
+//                shipImg = ImageIO.read(new File("C:\\Users\\user\\IdeaProjects\\SeaBattle\\src\\com\\company\\ship1.jpg")); //нормальный путь сделать
+//            } catch (IOException e) {
+//                System.out.println("JOKE");
+//            }
+//        }
+//        else {
+//            try {
+//                shipImg = ImageIO.read(new File("C:\\Users\\user\\IdeaProjects\\SeaBattle\\src\\com\\company\\ship1.jpg")); //нормальный путь сделать
+//            } catch (IOException e) {
+//                System.out.println("JOKE");
+//            }
+//        }
     }
 
     public Image getShipImg() {
