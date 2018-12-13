@@ -60,19 +60,25 @@ public class Server {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             Socket socket = serverSocket.accept();
-            System.out.println("Got a client ");
-
             InputStream sin = socket.getInputStream();
-//            OutputStream sout = socket.getOutputStream();
-
             DataInputStream in = new DataInputStream(sin);
-//            DataOutputStream out = new DataOutputStream(sout);
+            System.out.println("Got a client1 ");
+
+            ServerSocket serverSocket2 = new ServerSocket(port);
+            Socket socket2 = serverSocket.accept();
+            InputStream sin2 = socket.getInputStream();
+            DataInputStream in2 = new DataInputStream(sin2);
+            System.out.println("Got a client2 ");
+
+
 
             String line = null;
+            String line2 = null;
             while (running){
-                System.out.println("OPA");
                 line = in.readUTF();
+                line = in2.readUTF();
                 System.out.println(line);
+                System.out.println(line2);
             }
         }catch (Exception e){e.printStackTrace();}
     }
