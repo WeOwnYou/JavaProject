@@ -8,7 +8,8 @@ public class Client extends Thread{ //мб для других стей?
 
     private String s;
     private String addressOfNetwork;
-    private String address;
+    private String address1;
+    private String address2;
     private boolean running;
     private Game game;
     private int port = 2000;
@@ -57,7 +58,7 @@ public class Client extends Thread{ //мб для других стей?
                 if(!game.getIPDetected() && !game.getIPDetected()) {
                     return;
                 }
-                System.out.println(game.getIPDetected() + " OPA " +game.getSideIPdetected());
+                System.out.println(game.getIPAdressOfOpponent() + " OPA " +game.getSideIPAdress());
             }catch(Exception e){;}
         }
         System.out.println("End client");
@@ -65,18 +66,24 @@ public class Client extends Thread{ //мб для других стей?
 
     public void mainClient(){
         System.out.println("Started");
-        address = game.getIPAdressOfOpponent();
+        address1 = game.getIPAdressOfOpponent();
+        address2 = game.getSideIPAdress();
         try{
             InetAddress ipAddress = InetAddress.getByName(address);
             Socket socket = new Socket(ipAddress, port);
-// InputStream sin = socket.getInputStream(); OutputStream sout = socket.getOutputStream();
+            OutputStream sout = socket.getOutputStream();
+            DataOutputStream out = new DataOutputStream(sout);
 
-// DataInputStream in = new DataInputStream(sin); DataOutputStream out = new DataOutputStream(sout);
+            InetAddress ipAddress2 = InetAddress.getByName(address2);
+            Socket socket2 = new Socket(ipAddress2, port);
+            OutputStream sout2 = socket2.getOutputStream();
+            DataOutputStream out2 = new DataOutputStream(sout2);
 
             while (running){
-//                out.writeUTF(game.getGameField());
+                out.writeUTF(game.getGameField());
+                out2.writeUTF(game.getGameField());
                 System.out.println("VYVOD");
-                Thread.sleep(1000);
+                Thread.sleep(10000);
             }
 
 
