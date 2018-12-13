@@ -54,8 +54,9 @@ public class Client extends Thread{ //мб для других стей?
             try {
                 ms.send(packet);
                 System.out.println("Packet Send");
-//                Thread.sleep(3000);
+                Thread.sleep(3000);
                 if(!game.getIPDetected() && !game.getIPDetected()) {
+                    System.out.println("OOPS");
                     return;
                 }
                 System.out.println(game.getIPAdressOfOpponent() + " OPA " +game.getSideIPAdress());
