@@ -54,7 +54,7 @@ public class Client extends Thread{ //мб для других стей?
             try {
                 ms.send(packet);
                 System.out.println("Packet Send");
-                Thread.sleep(3000);
+//                Thread.sleep(3000);
                 if(!game.getIPDetected() && !game.getIPDetected()) {
                     return;
                 }
@@ -69,7 +69,7 @@ public class Client extends Thread{ //мб для других стей?
         address1 = game.getIPAdressOfOpponent();
         address2 = game.getSideIPAdress();
         try{
-            InetAddress ipAddress = InetAddress.getByName(address);
+            InetAddress ipAddress = InetAddress.getByName(address1);
             Socket socket = new Socket(ipAddress, port);
             OutputStream sout = socket.getOutputStream();
             DataOutputStream out = new DataOutputStream(sout);
