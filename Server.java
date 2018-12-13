@@ -35,7 +35,7 @@ public class Server {
                     if(!game.getIPDetected()) {
                         game.setIPDetected(true);
                         game.setIPAdressOfOpponent(packet.getAddress().getHostAddress());
-                    }else if(!game.getSideIPdetected()){
+                    }else if(!game.getSideIPdetected() && game.getIPAdressOfOpponent() != packet.getAddress().getHostAddress()){
                         game.setSideIPdetected(true);
                         game.setSideIPAdress(packet.getAddress().getHostAddress());
                     }else {
