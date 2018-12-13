@@ -36,7 +36,7 @@ public class Server {
                         game.setIPDetected(true);
                         game.setIPAdressOfOpponent(packet.getAddress().getHostAddress());
                     }else if(!game.getSideIPdetected()){
-                        if(game.getSideIPAdress().equals(packet.getAddress().getHostAddress()))
+                        if(game.getIPAdressOfOpponent().equals(packet.getAddress().getHostAddress()))
                             continue;
                         System.out.println(packet.getAddress().getHostAddress()+" NAdo " + game.getIPAdressOfOpponent());
                         game.setSideIPdetected(true);
