@@ -9,19 +9,12 @@ public class MyThread extends Thread {
     }
 
     public void run() {
-        Server server = new Server(game);
         Client client = new Client(game);
         try {
-                if(!game.getIPDetected()) {
-                    client.sendPacketToDetect();
-                    server.serverToDetect();
-                }
-//                else{
-//                    client.mainClient();
-//                    server.mainServer();
-//                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            client.sendPacketToDetect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
