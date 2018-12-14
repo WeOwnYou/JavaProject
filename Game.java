@@ -136,24 +136,24 @@ public class Game extends JPanel {
 //
 //            if (x0 <= x && x <= x1 && y0 <= y && y1 >= y) {
         boolean tempfl = false;
-            for(int i = 0; i < 10;i++) {
-                for (int j = 0; j < 10; j++)
-                    if (gameField[y][x] == 1) {
-                        gameField[y][x] = -1;
-                        System.out.println("HURT");
-                        tempfl = true;
-                        break;
-                    } else {
-                        if(!(gameField[y][x] == -1)) {
-                            System.out.println("NOT HURT");
-                            gameField[y][x] = -2;
-                        }
-                        tempfl = true;
-                        break;
+        for(int i = 0; i < 10;i++) {
+            for (int j = 0; j < 10; j++)
+                if (gameField[y][x] == 1) {
+                    gameField[y][x] = -1;
+                    System.out.println("HURT");
+                    tempfl = true;
+                    break;
+                } else {
+                    if(!(gameField[y][x] == -1)) {
+                        System.out.println("NOT HURT");
+                        gameField[y][x] = -2;
                     }
-                    if(tempfl)
-                        break;
-            }
+                    tempfl = true;
+                    break;
+                }
+            if(tempfl)
+                break;
+        }
         System.out.println(x + " " +y);
 //        for (int i = 0; i < 10; i++) {                                                                                  //игровое поле
 //            for (int j = 0; j < 10; j++)
@@ -185,10 +185,12 @@ public class Game extends JPanel {
             return;
 //
 //            byte data[] = s.getBytes();
-            MyThread t = new MyThread(this);
-            if(!IPdetected) {
-                t.start();
-            }
+        MyThread t = new MyThread(this);
+        MyThread2 t2 = new MyThread2(this);
+        if(!IPdetected && !sideIPdetected) {
+            t.start();
+            t2.start();
+        }
     }
 
 
@@ -295,8 +297,8 @@ public class Game extends JPanel {
             return;
 
         try {
-            Image acceptpImg = ImageIO.read(new File("C:\\Users\\User\\IdeaProjects\\SeaBattle\\src\\com\\company\\acceptPlacingButton.png"));
-            Image resetImg = ImageIO.read(new File("C:\\Users\\User\\IdeaProjects\\SeaBattle\\src\\com\\company\\resetForPlacingButton.png"));
+            Image acceptpImg = ImageIO.read(new File("C:\\Users\\User\\IdeaProjects\\SesBattle\\src\\com\\company\\acceptPlacingButton.png"));
+            Image resetImg = ImageIO.read(new File("C:\\Users\\User\\IdeaProjects\\SesBattle\\src\\com\\company\\resetForPlacingButton.png"));
             g.drawImage(acceptpImg, x1, y1, width, width, null);
             g.drawImage(resetImg, x2, y2, width, width, null);
         } catch (IOException e) {
