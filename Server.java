@@ -11,14 +11,14 @@ public class Server {
     private boolean running;
 
     public Server(Game game) {
-        port = 2000;
+        port = 9000;
         running = true;
         this.game = game;
     }
 
     public void serverToDetect() {
         System.out.println("Started1");
-        if(game.getIPDetected()) {
+        if(game.isIPDetected()) {
             System.out.println("ТипаНашел");
             return;
         }
@@ -32,19 +32,22 @@ public class Server {
 
                     System.out.println(packet.getAddress().getHostAddress()+ "Это айпи1");                                               // + "  OPA \n " + new String(packet.getData(), 0, packet.getLength())
 
-                    if(!game.getIPDetected()) {
+                    if(!game.isIPDetected()) {
                         game.setIPDetected(true);
                         game.setIPAdressOfOpponent(packet.getAddress().getHostAddress());
-                    }else if(!game.getSideIPdetected()){
-                        System.out.println(packet.getAddress().getHostAddress());
-                        if(game.getIPAdressOfOpponent().equals(packet.getAddress().getHostAddress()))
-                            continue;
-                        System.out.println(packet.getAddress().getHostAddress()+" NAdo " + game.getIPAdressOfOpponent());
-                        game.setSideIPdetected(true);
-                        game.setSideIPAdress(packet.getAddress().getHostAddress());
                     }else {
-                        running = false;
-                        return;
+                        System.out.println(packet.getAddress().getHostAddress() + " &!");
+                        if (!game.isSideIPdetected()) {
+                            System.out.println(packet.getAddress().getHostAddress());
+                            if (game.getIPAdressOfOpponent().equals(packet.getAddress().getHostAddress()))
+                                continue;
+                            System.out.println(packet.getAddress().getHostAddress() + " NAdo " + game.getIPAdressOfOpponent());
+                            game.setSideIPdetected(true);
+                            game.setSideIPAdress(packet.getAddress().getHostAddress());
+                        } else {
+                            running = false;
+                            return;
+                        }
                     }
                 } catch (Exception e) {
                     System.out.println("Nado");
@@ -57,29 +60,24 @@ public class Server {
     }
 
     public  void mainServer(){
-        System.out.println("Started2");
+        System.out.println("StartedX");
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             Socket socket = serverSocket.accept();
+            game.setLocalConnection(true);
             InputStream sin = socket.getInputStream();
             DataInputStream in = new DataInputStream(sin);
             System.out.println("Got a client1 ");
 
-            ServerSocket serverSocket2 = new ServerSocket(port);
-            Socket socket2 = serverSocket.accept();
-            InputStream sin2 = socket.getInputStream();
-            DataInputStream in2 = new DataInputStream(sin2);
-            System.out.println("Got a client2 ");
-
-
-
             String line = null;
-            String line2 = null;
             while (running){
                 line = in.readUTF();
-                line = in2.readUTF();
+                try{
+                    line.split(".");
+                    game.setSideIPAdress(line);
+                    game.setSideIPdetected(true);
+                }catch (Exception e){;}
                 System.out.println(line);
-                System.out.println(line2);
             }
         }catch (Exception e){e.printStackTrace();}
     }
